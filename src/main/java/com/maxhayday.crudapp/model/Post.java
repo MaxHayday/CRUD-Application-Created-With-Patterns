@@ -1,6 +1,7 @@
 package com.maxhayday.crudapp.model;
 
 public class Post extends AbstractBaseEntity {
+    private String content;
     private String created;
     private String updated;
 
@@ -20,24 +21,11 @@ public class Post extends AbstractBaseEntity {
         this.updated = updated;
     }
 
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
-
-    @Override
     public String getName() {
-        return super.getName();
+        return content;
     }
 
-    @Override
-    public void setName(String name) {
-        super.setName(name);
+    public void setName(String content) {
+        this.content = content;
     }
-
 }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaIOPostRepositoryImpl implements PostRepository {
-    private static final Path postPath = Paths.get("//home/max/IdeaProjects/CRUDConsoleApplicationCreatedWithPatterns/src/resources/post.txt");
+    private static final Path postPath = Paths.get("/home/max/IdeaProjects/CRUDConsoleApplicationCreatedWithPatterns/src/main/resources/post.txt");
     private static Long countId = 0L;
     private List<String> list;
     private List<Post> postList;
@@ -66,6 +66,11 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
         String postStr = (++countId) + "." + post.getName() + " " + attr.creationTime().toString().split("\\.")[0] + " " + attr.lastModifiedTime().toString().split("\\.")[0] + "\n";
         Files.write(postPath, postStr.getBytes(), StandardOpenOption.APPEND);
         return post;
+    }
+
+    @Override
+    public Post update(Post post) throws IOException {
+        return null;
     }
 
     @Override

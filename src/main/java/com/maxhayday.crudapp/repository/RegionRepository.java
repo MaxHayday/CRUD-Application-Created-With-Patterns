@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
-public interface RegionRepository {
+public interface RegionRepository extends GenericRepository<Region,Long>{
     Region getById(Long id) throws IOException, ParseException;
 
     Region save(Region region) throws IOException;

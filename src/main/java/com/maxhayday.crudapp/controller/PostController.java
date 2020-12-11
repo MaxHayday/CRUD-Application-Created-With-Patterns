@@ -11,7 +11,7 @@ import java.util.List;
 public class PostController {
     private PostRepository repository;
 
-    public PostController() throws IOException, ParseException {
+    public PostController() throws IOException {
         repository = new JavaIOPostRepositoryImpl();
     }
 

@@ -6,7 +6,6 @@ import com.maxhayday.crudapp.model.User;
 public abstract class UserBuilder {
     User user;
 
-
     void createUser() {
         user = new User();
     }

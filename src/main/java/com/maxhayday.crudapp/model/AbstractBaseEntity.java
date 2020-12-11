@@ -2,7 +2,6 @@ package com.maxhayday.crudapp.model;
 
 public abstract class AbstractBaseEntity {
     private Long id;
-    private String name;
 
     public Long getId() {
         return id;
@@ -10,14 +9,6 @@ public abstract class AbstractBaseEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }

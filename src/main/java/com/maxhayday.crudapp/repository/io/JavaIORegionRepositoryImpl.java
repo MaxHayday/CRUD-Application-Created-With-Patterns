@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaIORegionRepositoryImpl implements RegionRepository {
-    private static final Path regionPath = Paths.get("//home/max/IdeaProjects/CRUDConsoleApplicationCreatedWithPatterns/src/resources/region.txt");
+    private static final Path regionPath = Paths.get("/home/max/IdeaProjects/CRUDConsoleApplicationCreatedWithPatterns/src/main/resources/region.txt");
     private static Long countId = 0L;
     private List<Region> regionList;
     private List<String> list;
@@ -84,6 +84,11 @@ public class JavaIORegionRepositoryImpl implements RegionRepository {
             writer.newLine();
         }
         writer.close();
+        return null;
+    }
+
+    @Override
+    public Region update(List<Region> t) throws IOException {
         return null;
     }
 

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
-public interface UserRepository {
+public interface UserRepository extends GenericRepository<User, Long> {
     User getById(Long id) throws IOException, ParseException;
 
     User save(User user) throws IOException;

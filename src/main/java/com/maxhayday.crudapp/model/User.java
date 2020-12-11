@@ -1,8 +1,13 @@
 package com.maxhayday.crudapp.model;
 
+import java.util.List;
+
 public class User extends AbstractBaseEntity {
+    private String name;
     private String lastName;
     private Role role;
+    private List<Post> posts;
+    private Region region;
 
 
     public Role getRole() {
@@ -21,24 +26,12 @@ public class User extends AbstractBaseEntity {
         this.role = role;
     }
 
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
-
-    @Override
     public String getName() {
-        return super.getName();
+        return name;
     }
 
-    @Override
     public void setName(String name) {
-        super.setName(name);
+        this.name = name;
     }
 
 }

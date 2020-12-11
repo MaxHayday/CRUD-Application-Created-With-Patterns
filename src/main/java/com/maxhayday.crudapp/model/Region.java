@@ -1,24 +1,13 @@
 package com.maxhayday.crudapp.model;
 
 public class Region extends AbstractBaseEntity {
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
+    private String name;
 
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
-
-    @Override
     public String getName() {
-        return super.getName();
+        return name;
     }
 
-    @Override
     public void setName(String name) {
-        super.setName(name);
+        this.name = name;
     }
-
 }

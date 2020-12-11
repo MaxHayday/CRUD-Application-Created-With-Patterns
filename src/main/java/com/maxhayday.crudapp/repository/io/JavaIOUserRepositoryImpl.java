@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaIOUserRepositoryImpl implements UserRepository {
-    private static final Path userPath = Paths.get("//home/max/IdeaProjects/CRUDConsoleApplicationCreatedWithPatterns/src/resources/user.txt");
+    private static final Path userPath = Paths.get("/home/max/IdeaProjects/CRUDConsoleApplicationCreatedWithPatterns/src/main/resources/user.txt");
     private static Long countId = 0L;
     private List<String> list;
     private BufferedReader reader;
@@ -85,6 +85,11 @@ public class JavaIOUserRepositoryImpl implements UserRepository {
         }
 
         writer.close();
+        return null;
+    }
+
+    @Override
+    public User update(List<User> t) throws IOException {
         return null;
     }
 
