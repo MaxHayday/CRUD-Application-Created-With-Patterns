@@ -63,7 +63,7 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
 
     @Override
     public Post save(Post post) throws IOException {
-        String postStr = (++countId) + "." + post.getName() + " " + attr.creationTime().toString().split("\\.")[0] + " " + attr.lastModifiedTime().toString().split("\\.")[0] + "\n";
+        String postStr = (++countId) + "." + post.getContent() + " " + attr.creationTime().toString().split("\\.")[0] + " " + attr.lastModifiedTime().toString().split("\\.")[0] + "\n";
         Files.write(postPath, postStr.getBytes(), StandardOpenOption.APPEND);
         return post;
     }
@@ -86,7 +86,7 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
             for (Post p :
                     posts) {
                 if (Long.parseLong(s.split("\\.")[0]) == p.getId() && (!s.isEmpty())) {
-                    writer.write(p.getId() + "." + p.getName() + " " + attr.creationTime().toString().split("\\.")[0] + " " + attr.lastModifiedTime().toString().split("\\.")[0]);
+                    writer.write(p.getId() + "." + p.getContent() + " " + attr.creationTime().toString().split("\\.")[0] + " " + attr.lastModifiedTime().toString().split("\\.")[0]);
                 } else {
                     writer.write(s);
                 }

@@ -9,7 +9,7 @@ public class PostBuilderImpl extends PostBuilder {
 
     @Override
     void buildContent(String content) {
-        post.setName(content);
+        post.setContent(content);
     }
 
     @Override

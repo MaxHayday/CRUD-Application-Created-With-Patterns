@@ -133,7 +133,7 @@ public class UserViewObserver implements ViewObserver {
                 for (; j < regionList.size(); ) {
                     System.out.printf("%-25s", regionList.get(j).getName());
                     for (; k < postList.size(); ) {
-                        System.out.printf("%-25s%n", postList.get(k).getName());
+                        System.out.printf("%-25s%n", postList.get(k).getContent());
                         break;
                     }
                     k++;

@@ -67,7 +67,7 @@ public class PostViewObserver implements ViewObserver {
                 return;
             }
             Post post = controller.getById(id);
-            System.out.printf("%-20s%-25s%-20s%n", post.getName(), post.getCreated(), post.getUpdated());
+            System.out.printf("%-20s%-25s%-20s%n", post.getContent(), post.getCreated(), post.getUpdated());
         } catch (IOException | NumberFormatException | ParseException e) {
             System.out.println("Write correct id.");
         }
