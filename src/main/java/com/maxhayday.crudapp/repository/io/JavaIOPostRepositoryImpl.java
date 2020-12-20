@@ -19,6 +19,7 @@ import java.util.List;
 public class JavaIOPostRepositoryImpl implements PostRepository {
     private static final Path postPath = Paths.get("/home/max/IdeaProjects/CRUDConsoleApplicationCreatedWithPatterns/src/main/resources/post.txt");
     private static Long countId = 0L;
+    private static Long userId = 0L;
     private List<String> list;
     private List<Post> postList;
     private BufferedReader reader;
@@ -40,6 +41,15 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
         }
     }
 
+    @Override
+    public Post save(Post post) throws IOException {
+        if (post.getId() == null) {
+            post.setId(++countId);
+        }
+        String postStr = post.getId() + "," + post.getContent() + "," + attr.creationTime().toString().split("\\.")[0] + "," + attr.lastModifiedTime().toString().split("\\.")[0] + "\n";
+        Files.write(postPath, postStr.getBytes(), StandardOpenOption.APPEND);
+        return post;
+    }
 
     @Override
     public Post getById(Long id) throws IOException {
@@ -52,8 +62,8 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
         for (String s :
                 list) {
             if (!(s.isEmpty())) {
-                if (Long.parseLong(s.split("\\.")[0]) == id) {
-                    post = director.buildPost(id, s.split("\\.+|[\\s]")[1], attr.creationTime().toString().split("\\.")[0], attr.lastModifiedTime().toString().split("\\.")[0]);
+                if (Long.parseLong(s.split(",")[0]) == id) {
+                    post = director.buildPost(id, s.split(",")[1], attr.creationTime().toString().split("\\.")[0], attr.lastModifiedTime().toString().split("\\.")[0]);
                     return post;
                 }
             } else break;
@@ -61,20 +71,9 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
         return null;
     }
 
-    @Override
-    public Post save(Post post) throws IOException {
-        String postStr = (++countId) + "." + post.getContent() + " " + attr.creationTime().toString().split("\\.")[0] + " " + attr.lastModifiedTime().toString().split("\\.")[0] + "\n";
-        Files.write(postPath, postStr.getBytes(), StandardOpenOption.APPEND);
-        return post;
-    }
 
     @Override
     public Post update(Post post) throws IOException {
-        return null;
-    }
-
-    @Override
-    public Post update(List<Post> posts) throws IOException {
         list = new ArrayList<>();
         reader = Files.newBufferedReader(postPath);
         while (reader.ready()) {
@@ -83,15 +82,12 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
         reader.close();
         writer = Files.newBufferedWriter(postPath);
         for (String s : list) {
-            for (Post p :
-                    posts) {
-                if (Long.parseLong(s.split("\\.")[0]) == p.getId() && (!s.isEmpty())) {
-                    writer.write(p.getId() + "." + p.getContent() + " " + attr.creationTime().toString().split("\\.")[0] + " " + attr.lastModifiedTime().toString().split("\\.")[0]);
-                } else {
-                    writer.write(s);
-                }
-                writer.newLine();
+            if (Long.parseLong(s.split(",")[0]) == post.getId() && (!s.isEmpty())) {
+                writer.write(post.getId() + "," + post.getContent() + "," + attr.creationTime().toString().split("\\.")[0] + " " + attr.lastModifiedTime().toString().split("\\.")[0]);
+            } else {
+                writer.write(s);
             }
+            writer.newLine();
         }
         writer.close();
         return null;
@@ -102,11 +98,9 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
         postList = new ArrayList<>();
         reader = Files.newBufferedReader(postPath);
         while (reader.ready()) {
-            String[] line = reader.readLine().split("\\s+|\\.\\s*");
-            if (line.length != 0 && !(line[0].isEmpty())) {
-                post = director.buildPost(Long.parseLong(line[0]), line[1], attr.creationTime().toString().split("\\.")[0], attr.lastModifiedTime().toString().split("\\.")[0]);
-                postList.add(post);
-            }
+            String[] line = reader.readLine().split(",");
+            post = director.buildPost(Long.parseLong(line[0]), line[1], attr.creationTime().toString().split("\\.")[0], attr.lastModifiedTime().toString().split("\\.")[0]);
+            postList.add(post);
         }
         reader.close();
         return postList;
@@ -123,12 +117,11 @@ public class JavaIOPostRepositoryImpl implements PostRepository {
         writer = Files.newBufferedWriter(postPath);
         for (String s :
                 list) {
-            if (Long.parseLong(s.split("\\.")[0]) != id) {
+            if (Long.parseLong(s.split(",")[0]) != id) {
                 writer.write(s);
                 writer.newLine();
             }
         }
         writer.close();
-        --countId;
     }
 }

@@ -5,6 +5,8 @@ import com.maxhayday.crudapp.model.Post;
 import com.maxhayday.crudapp.model.Region;
 import com.maxhayday.crudapp.model.User;
 
+import java.util.List;
+
 public class ModelDirector {
     private UserBuilder builder;
     private RegionBuilder regionBuilder;
@@ -32,11 +34,13 @@ public class ModelDirector {
         return post;
     }
 
-    public User buildUser(Long id, String firstName, String lastName, String role) {
+    public User buildUser(Long id, String firstName, String lastName, List<Post> posts, Region region, String role) {
         builder.createUser();
         builder.buildID(id);
         builder.buildFirstName(firstName);
         builder.buildLastName(lastName);
+        builder.buildListPosts(posts);
+        builder.buildRegion(region);
         builder.buildRole(role);
         User user = builder.getUser();
         return user;

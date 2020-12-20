@@ -1,6 +1,7 @@
 package com.maxhayday.crudapp.model;
 
 public class Post extends AbstractBaseEntity {
+
     private String content;
     private String created;
     private String updated;

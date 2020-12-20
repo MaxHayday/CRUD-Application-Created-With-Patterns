@@ -1,6 +1,10 @@
 package com.maxhayday.crudapp.builder;
 
+import com.maxhayday.crudapp.model.Post;
+import com.maxhayday.crudapp.model.Region;
 import com.maxhayday.crudapp.model.Role;
+
+import java.util.List;
 
 
 public class UserBuilderImpl extends UserBuilder {
@@ -18,6 +22,16 @@ public class UserBuilderImpl extends UserBuilder {
     @Override
     void buildLastName(String lastName) {
         user.setLastName(lastName);
+    }
+
+    @Override
+    void buildListPosts(List<Post> posts) {
+        user.setPosts(posts);
+    }
+
+    @Override
+    void buildRegion(Region region) {
+        user.setRegion(region);
     }
 
     @Override

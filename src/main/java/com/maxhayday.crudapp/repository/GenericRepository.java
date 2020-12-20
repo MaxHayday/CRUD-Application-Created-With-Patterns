@@ -7,11 +7,9 @@ import java.util.List;
 public interface GenericRepository<T,ID> {
     T getById(Long id) throws IOException, ParseException;
 
-    T save(T t) throws IOException;
+    T save(T t) throws IOException, ParseException;
 
-    T update(T t) throws IOException;
-
-    T update(List<T> t) throws IOException;
+    T update(T t) throws IOException, ParseException;
 
     List<T> getAll() throws IOException, ParseException;
 

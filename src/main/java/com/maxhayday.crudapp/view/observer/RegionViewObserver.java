@@ -8,86 +8,69 @@ import com.maxhayday.crudapp.controller.RegionController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.ParseException;
 import java.util.List;
 
 public class RegionViewObserver implements ViewObserver {
-    private RegionController controller;
+    private RegionController regionController;
     private ModelDirector director;
     private String data;
     private List<Region> regionsList;
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private Region region;
-    private static Long id = 0L;
+    private String regionStr = "";
 
-    public RegionViewObserver() throws IOException, ParseException {
-        controller = new RegionController();
+    public RegionViewObserver() {
+        regionController = new RegionController();
         director = new ModelDirector();
         director.setRegionBuilder(new RegionBuilderImpl());
     }
 
     @Override
-    public void create() {
-        try {
-            System.out.println("Write a region: ");
-            data = reader.readLine();
-            if (!(data.isEmpty() || data.matches("[0-9]") || data.matches("[^\\w]"))) {
-                region = director.buildRegion(id, data);
-                controller.save(region);
-            } else return;
-        } catch (IOException e) {
-            System.out.println("Please wright correct region;");
-        }
+    public void create() throws IOException {
+        System.out.println("Write a region: ");
+        regionStr = reader.readLine();
+        regionController.save(null, regionStr);
     }
 
     @Override
-    public void update(Long id) {
-        try {
-            regionsList = controller.getAll();
-            if (regionsList.isEmpty()) return;
-            System.out.println("Write new region: ");
-            data = reader.readLine();
-            region = director.buildRegion(id, data);
-            controller.update(region);
-        } catch (IOException | ParseException | NumberFormatException exception) {
-            System.out.println("Wrong id or name.");
-        }
+    public void update(Long id) throws IOException {
+        System.out.println("Write new region: ");
+        data = reader.readLine();
+        regionController.update(id, data);
+
     }
 
     @Override
     public void getById(Long id) {
-        try {
-            regionsList = controller.getAll();
-            if (regionsList.isEmpty()) return;
-            region = controller.getById(id);
-            System.out.printf("%-20s", region.getName());
-        } catch (IOException | ParseException | NumberFormatException e) {
-            System.out.println("Write correct id.");
+        regionsList = regionController.getAll();
+        if (regionsList.isEmpty()) {
+            System.out.println("You haven`t region with " + id + " id.");
+            return;
         }
     }
 
     @Override
     public void getAll() {
-        try {
-            regionsList = controller.getAll();
-            if (regionsList.isEmpty()) {
-                return;
-            }
-//            for (Region i :
-//                    regionsList) {
-//                System.out.printf("%-25s", i.getName());
-//            }
-        } catch (IOException | ParseException e) {
-            System.out.println("You have not regions.");
+        regionsList = regionController.getAll();
+        if (regionsList.isEmpty()) {
+            System.out.println("You haven`t regions.");
+            return;
+        }
+        System.out.println("===========");
+        System.out.printf("%-5s%-20s%n", "ID", "REGION");
+        System.out.println("===========");
+        for (Region i :
+                regionsList) {
+            System.out.printf("%-5s%-25s%n", i.getId(), i.getName());
         }
     }
 
     @Override
     public void delete(Long id) {
-        try {
-            controller.deleteById(id);
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Write correct id.");
+        region = regionController.getById(id);
+        if (region == null) {
+            System.out.println("You haven`t region with " + id + " id.");
         }
+        regionController.deleteById(id);
     }
 }

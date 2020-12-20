@@ -5,13 +5,32 @@ import java.util.List;
 public class User extends AbstractBaseEntity {
     private String name;
     private String lastName;
-    private Role role;
     private List<Post> posts;
     private Region region;
-
+    private Role role;
 
     public Role getRole() {
         return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     public String getLastName() {
@@ -20,10 +39,6 @@ public class User extends AbstractBaseEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public String getName() {
